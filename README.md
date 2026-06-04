@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWAX | Site Officiel</title>
     <style>
-        /* RESET GLOBAL */
+        /* RESET GLOBAL POUR LE PLEIN ÉCRAN */
         * {
             margin: 0;
             padding: 0;
@@ -13,11 +13,12 @@
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             background-color: #ffffff;
             color: #111111;
             overflow-x: hidden;
-            position: relative;
         }
 
         /* HEADER PRINCIPAL */
@@ -72,10 +73,10 @@
             border-bottom: 2px solid #111111;
         }
 
-        /* BADGE AVEC FOND NOIR ET TEXTE NEW EN ROUGE */
+        /* BADGE AVEC FOND NOIR ET TEXTE EN ROUGE */
         .badge-new {
             background-color: #111111;
-            color: #ff3b30; /* Rouge */
+            color: #ff3b30;
             font-size: 10px;
             font-weight: 800;
             padding: 2px 6px;
@@ -164,29 +165,16 @@
             justify-content: center;
         }
 
-        /* ANIMATIONS DU COEUR VOLANT */
-        @keyframes heartPop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-        .animate-heart-btn {
-            animation: heartPop 0.4s ease-out;
-        }
-
-        .flying-heart {
-            position: fixed;
-            z-index: 9999;
-            color: #ff3b30;
-            font-size: 30px;
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        /* ACCUEIL HERO */
-        .hero-section {
+        /* CONTENEUR CONTENU ADAPTATIF */
+        #content-area {
             width: 100%;
             height: calc(100vh - 60px);
+        }
+
+        /* ACCUEIL HERO GRANDE TAILLE */
+        .hero-section {
+            width: 100%;
+            height: 100%;
             background-color: #000000;
         }
 
@@ -231,20 +219,20 @@
             cursor: pointer;
         }
 
-        /* PAGE NOUVEAU TOTALEMENT IMMERSIVE */
+        /* PAGE NOUVEAU TOTALEMENT IMMERSIVE (100% LARGEUR/HAUTEUR) */
         .nouveau-full-page {
             width: 100%;
-            height: calc(100vh - 60px);
+            height: 100%;
             background-image: url('T-shirt swax.png');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
         }
 
-        /* CONFIGURATION CHRONOMÈTRE */
+        /* CHRONOMÈTRE */
         .shop-section-timer {
             width: 100%;
-            height: calc(100vh - 60px);
+            height: 100%;
             background-color: #000000;
             display: flex;
             flex-direction: column;
@@ -395,7 +383,6 @@
     </div>
 
     <script>
-        // --- LOGIQUE DES PRODUITS EN FAVORIS ---
         let favoris = JSON.parse(localStorage.getItem('swax_favoris_items')) || [];
 
         function rafraichirIconeFavorisMenu() {
@@ -443,7 +430,6 @@
             `;
         }
 
-        // --- PANIER ET COMPTE À REBOURS ---
         let panier = JSON.parse(localStorage.getItem('swax_panier_items')) || [];
         function mettreAJourBadgePanier() {
             const badge = document.getElementById('global-cart-badge');
@@ -478,7 +464,6 @@
         }
         setInterval(actualiserVisuelChronometre, 1000);
 
-        // --- NAVIGATION ET RENDER PAGES ---
         function ouvrirPageNouveau() {
             const conteneur = document.getElementById('content-area');
             conteneur.innerHTML = `
